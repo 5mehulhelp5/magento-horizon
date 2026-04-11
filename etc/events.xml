@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <!-- Keep flat index fresh on product save -->
+    <event name="catalog_product_save_after">
+        <observer name="byte8_horizon_product_save" instance="Byte8\Horizon\Observer\ProductSaveObserver"/>
+    </event>
+
+</config>

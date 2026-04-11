@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Product Index resource model -->
+    <type name="Byte8\Horizon\Model\ProductIndex">
+        <arguments>
+            <argument name="resource" xsi:type="object">Byte8\Horizon\Model\ResourceModel\ProductIndex</argument>
+        </arguments>
+    </type>
+
+    <!-- CLI commands -->
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="horizon_reindex" xsi:type="object">Byte8\Horizon\Console\Command\ReindexCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

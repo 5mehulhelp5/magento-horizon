@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system.xsd">
+    <system>
+        <section id="byte8_horizon" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Horizon AI Gateway</label>
+            <tab>byte8</tab>
+            <resource>Byte8_Horizon::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Horizon API</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the /horizon/api/v1/* endpoints</comment>
+                </field>
+                <field id="api_key" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Key</label>
+                    <comment><![CDATA[Auto-generated during installation. Copy this key into your Horizon dashboard. To regenerate, clear the field and save. Requests must include header: <code>X-Horizon-Key: your-api-key</code>]]></comment>
+                    <backend_model>Byte8\Horizon\Model\Config\Backend\ApiKey</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!--
+        Flat product index for AI queries.
+        Denormalized from EAV to avoid expensive joins.
+        Rebuilt by: bin/magento horizon:reindex
+    -->
+    <table name="byte8_horizon_product_index" resource="default" engine="innodb"
+           comment="Horizon AI product index (flat, denormalized)">
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false"
+                comment="Magento product entity_id"/>
+        <column xsi:type="varchar" name="sku" nullable="false" length="64"
+                comment="Product SKU"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255"
+                comment="Product name"/>
+        <column xsi:type="text" name="short_description" nullable="true"
+                comment="Short description for AI context"/>
+        <column xsi:type="text" name="description" nullable="true"
+                comment="Full description"/>
+        <column xsi:type="varchar" name="product_type" nullable="false" length="32" default="simple"
+                comment="simple, configurable, bundle, grouped, virtual, downloadable"/>
+        <column xsi:type="decimal" name="price" precision="20" scale="6" nullable="true"
+                comment="Regular price"/>
+        <column xsi:type="decimal" name="special_price" precision="20" scale="6" nullable="true"
+                comment="Special/sale price"/>
+        <column xsi:type="varchar" name="currency_code" nullable="false" length="3" default="EUR"
+                comment="Store base currency"/>
+        <column xsi:type="boolean" name="is_in_stock" nullable="false" default="false"
+                comment="Stock availability"/>
+        <column xsi:type="decimal" name="qty" precision="12" scale="4" nullable="false" default="0"
+                comment="Salable quantity"/>
+        <column xsi:type="varchar" name="url_path" nullable="true" length="255"
+                comment="URL key / path"/>
+        <column xsi:type="varchar" name="main_image_url" nullable="true" length="512"
+                comment="Base image relative path"/>
+        <column xsi:type="text" name="category_ids_json" nullable="true"
+                comment="JSON array of assigned category IDs"/>
+        <column xsi:type="text" name="attributes_json" nullable="true"
+                comment="JSON array of {code, label, value} for filterable attributes"/>
+        <column xsi:type="smallint" name="visibility" unsigned="true" nullable="false" default="4"
+                comment="Magento visibility (1=not visible, 2=catalog, 3=search, 4=both)"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" default="1"
+                comment="Magento status (1=enabled, 2=disabled)"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false"
+                default="CURRENT_TIMESTAMP" comment="Last index update"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="product_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="BYTE8_HORIZON_PROD_IDX_SKU">
+            <column name="sku"/>
+        </constraint>
+
+        <index referenceId="BYTE8_HORIZON_PROD_IDX_FT" indexType="fulltext">
+            <column name="name"/>
+            <column name="sku"/>
+            <column name="short_description"/>
+        </index>
+        <index referenceId="BYTE8_HORIZON_PROD_IDX_TYPE">
+            <column name="product_type"/>
+        </index>
+        <index referenceId="BYTE8_HORIZON_PROD_IDX_STOCK">
+            <column name="is_in_stock"/>
+        </index>
+        <index referenceId="BYTE8_HORIZON_PROD_IDX_STATUS_VIS">
+            <column name="status"/>
+            <column name="visibility"/>
+        </index>
+    </table>
+
+</schema>

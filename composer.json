@@ -1,0 +1,25 @@
+{
+    "name": "byte8/module-horizon",
+    "description": "Horizon AI Visibility Gateway for Magento 2 - Exposes catalog data to AI agents via MCP protocol",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "require": {
+        "php": "~8.2.0||~8.3.0||~8.4.0||~8.5.0",
+        "magento/framework": "*",
+        "magento/module-catalog": "*",
+        "magento/module-store": "*",
+        "magento/module-sales": "*",
+        "magento/module-customer": "*",
+        "magento/module-inventory-api": "*",
+        "byte8/module-core": "^1.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Byte8\\Horizon\\": ""
+        }
+    },
+    "version": "1.0.0"
+}
