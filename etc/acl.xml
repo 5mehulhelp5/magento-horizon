@@ -4,13 +4,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Magento_Backend::stores">
-                    <resource id="Magento_Backend::stores_settings">
-                        <resource id="Magento_Config::config">
-                            <resource id="Byte8_Horizon::config" title="Horizon AI Gateway" sortOrder="20"/>
-                        </resource>
-                    </resource>
-                </resource>
+                <resource id="Byte8_Horizon::config" title="Horizon AI Gateway" sortOrder="20"/>
             </resource>
         </resources>
     </acl>
