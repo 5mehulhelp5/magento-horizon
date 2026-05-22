@@ -97,12 +97,12 @@ class CustomerService
 
             $customers[] = [
                 'id' => $customerId,
-                'email' => $customer->getEmail(),
-                'firstname' => $customer->getFirstname(),
-                'lastname' => $customer->getLastname(),
+                'email' => $customer->getEmail() ?? '',
+                'firstname' => $customer->getFirstname() ?? '',
+                'lastname' => $customer->getLastname() ?? '',
                 'group_name' => $groupNames[(int) $customer->getGroupId()] ?? 'General',
                 'is_active' => true, // Magento customers are active if they exist
-                'created_at' => $customer->getCreatedAt(),
+                'created_at' => $customer->getCreatedAt() ?? '',
                 'total_orders' => (int) $stats['total_orders'],
                 'total_spent' => (float) $stats['total_spent'],
             ];

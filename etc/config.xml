@@ -6,6 +6,7 @@
             <general>
                 <enabled>1</enabled>
                 <api_key/>
+                <gateway_url/>
             </general>
         </byte8_horizon>
     </default>

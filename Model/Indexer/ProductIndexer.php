@@ -66,6 +66,37 @@ class ProductIndexer
     }
 
     /**
+     * Partial reindex by SKU. Resolves each SKU to its product_id via
+     * catalog_product_entity, calls reindexByIds, and returns the resolved IDs
+     * so the caller (e.g. an MSI plugin) can pass them to the webhook Notifier.
+     *
+     * SKUs that don't resolve are silently dropped.
+     *
+     * @param string[] $skus
+     * @return int[]
+     */
+    public function reindexBySkus(array $skus): array
+    {
+        $skus = array_values(array_unique(array_filter($skus, 'strlen')));
+        if (empty($skus)) {
+            return [];
+        }
+
+        $connection = $this->resourceConnection->getConnection();
+        $select = $connection->select()
+            ->from($this->resourceConnection->getTableName('catalog_product_entity'), ['entity_id'])
+            ->where('sku IN (?)', $skus);
+
+        $productIds = array_map('intval', $connection->fetchCol($select));
+        if (empty($productIds)) {
+            return [];
+        }
+
+        $this->reindexByIds($productIds);
+        return $productIds;
+    }
+
+    /**
      * Partial reindex: update specific product IDs.
      */
     public function reindexByIds(array $productIds): void

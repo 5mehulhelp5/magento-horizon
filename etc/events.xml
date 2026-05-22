@@ -2,9 +2,25 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
 
-    <!-- Keep flat index fresh on product save -->
+    <!-- Product lifecycle: keep flat index fresh and push webhook to gateway -->
     <event name="catalog_product_save_after">
         <observer name="byte8_horizon_product_save" instance="Byte8\Horizon\Observer\ProductSaveObserver"/>
+    </event>
+    <event name="catalog_product_delete_commit_after">
+        <observer name="byte8_horizon_product_delete" instance="Byte8\Horizon\Observer\ProductDeleteObserver"/>
+    </event>
+
+    <!-- Category lifecycle: webhook only (no flat index for categories) -->
+    <event name="catalog_category_save_commit_after">
+        <observer name="byte8_horizon_category_save" instance="Byte8\Horizon\Observer\CategorySaveObserver"/>
+    </event>
+    <event name="catalog_category_delete_commit_after">
+        <observer name="byte8_horizon_category_delete" instance="Byte8\Horizon\Observer\CategoryDeleteObserver"/>
+    </event>
+
+    <!-- Inventory: legacy stock item save (also fires under MSI back-compat) -->
+    <event name="cataloginventory_stock_item_save_after">
+        <observer name="byte8_horizon_stock_item_save" instance="Byte8\Horizon\Observer\StockItemSaveObserver"/>
     </event>
 
 </config>

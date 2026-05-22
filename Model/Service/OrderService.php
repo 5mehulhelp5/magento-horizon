@@ -59,18 +59,18 @@ class OrderService
         foreach ($result->getItems() as $order) {
             $orders[] = [
                 'entity_id' => (int) $order->getEntityId(),
-                'increment_id' => $order->getIncrementId(),
-                'status' => $order->getStatus(),
-                'state' => $order->getState(),
+                'increment_id' => $order->getIncrementId() ?? '',
+                'status' => $order->getStatus() ?? '',
+                'state' => $order->getState() ?? '',
                 'grand_total' => (float) $order->getGrandTotal(),
-                'currency' => $order->getOrderCurrencyCode(),
-                'customer_email' => $order->getCustomerEmail(),
+                'currency' => $order->getOrderCurrencyCode() ?? '',
+                'customer_email' => $order->getCustomerEmail() ?? '',
                 'customer_name' => trim(
                     ($order->getCustomerFirstname() ?? '') . ' ' . ($order->getCustomerLastname() ?? '')
                 ),
                 'item_count' => (int) $order->getTotalItemCount(),
-                'created_at' => $order->getCreatedAt(),
-                'updated_at' => $order->getUpdatedAt(),
+                'created_at' => $order->getCreatedAt() ?? '',
+                'updated_at' => $order->getUpdatedAt() ?? '',
             ];
         }
 
@@ -138,16 +138,16 @@ class OrderService
 
         return [
             'entity_id' => (int) $order->getEntityId(),
-            'increment_id' => $order->getIncrementId(),
-            'status' => $order->getStatus(),
-            'state' => $order->getState(),
+            'increment_id' => $order->getIncrementId() ?? '',
+            'status' => $order->getStatus() ?? '',
+            'state' => $order->getState() ?? '',
             'grand_total' => (float) $order->getGrandTotal(),
             'subtotal' => (float) $order->getSubtotal(),
             'tax_amount' => (float) $order->getTaxAmount(),
             'shipping_amount' => (float) $order->getShippingAmount(),
             'discount_amount' => (float) ($order->getDiscountAmount() ?? 0),
-            'currency' => $order->getOrderCurrencyCode(),
-            'customer_email' => $order->getCustomerEmail(),
+            'currency' => $order->getOrderCurrencyCode() ?? '',
+            'customer_email' => $order->getCustomerEmail() ?? '',
             'customer_name' => trim(
                 ($order->getCustomerFirstname() ?? '') . ' ' . ($order->getCustomerLastname() ?? '')
             ),
@@ -156,8 +156,8 @@ class OrderService
             'billing_address' => $billingAddress,
             'payment_method' => $paymentMethod,
             'shipping_method' => $order->getShippingDescription() ?? '',
-            'created_at' => $order->getCreatedAt(),
-            'updated_at' => $order->getUpdatedAt(),
+            'created_at' => $order->getCreatedAt() ?? '',
+            'updated_at' => $order->getUpdatedAt() ?? '',
         ];
     }
 
@@ -168,14 +168,14 @@ class OrderService
         }
 
         return [
-            'firstname' => $address->getFirstname(),
-            'lastname' => $address->getLastname(),
+            'firstname' => $address->getFirstname() ?? '',
+            'lastname' => $address->getLastname() ?? '',
             'street' => $address->getStreet() ?? [],
-            'city' => $address->getCity(),
+            'city' => $address->getCity() ?? '',
             'region' => $address->getRegion() ?? '',
-            'postcode' => $address->getPostcode(),
-            'country_id' => $address->getCountryId(),
-            'telephone' => $address->getTelephone(),
+            'postcode' => $address->getPostcode() ?? '',
+            'country_id' => $address->getCountryId() ?? '',
+            'telephone' => $address->getTelephone() ?? '',
         ];
     }
 }

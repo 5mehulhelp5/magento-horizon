@@ -18,4 +18,18 @@
         </arguments>
     </type>
 
+    <!-- MSI (Multi-Source Inventory) hooks. MSI is plugin-driven, not event-
+         driven, so we attach after-plugins to its public service interfaces.
+         These plugins silently no-op when MSI isn't installed. -->
+    <type name="Magento\InventoryApi\Api\SourceItemsSaveInterface">
+        <plugin name="byte8_horizon_msi_source_items_save"
+                type="Byte8\Horizon\Plugin\Msi\SourceItemsSavePlugin"
+                sortOrder="100"/>
+    </type>
+    <type name="Magento\InventoryApi\Api\SourceItemsDeleteInterface">
+        <plugin name="byte8_horizon_msi_source_items_delete"
+                type="Byte8\Horizon\Plugin\Msi\SourceItemsDeletePlugin"
+                sortOrder="100"/>
+    </type>
+
 </config>

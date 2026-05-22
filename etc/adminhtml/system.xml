@@ -18,6 +18,10 @@
                     <comment><![CDATA[Auto-generated during installation. Copy this key into your Horizon dashboard. To regenerate, clear the field and save. Requests must include header: <code>X-Horizon-Key: your-api-key</code>]]></comment>
                     <backend_model>Byte8\Horizon\Model\Config\Backend\ApiKey</backend_model>
                 </field>
+                <field id="gateway_url" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Gateway URL</label>
+                    <comment><![CDATA[Base URL of the Byte8 Horizon gateway (e.g. <code>https://horizon.byte8.io</code> or <code>http://host.docker.internal:8085</code> for local dev). Used to push catalog invalidation webhooks. Leave empty to disable outbound webhooks.]]></comment>
+                </field>
             </group>
         </section>
     </system>
